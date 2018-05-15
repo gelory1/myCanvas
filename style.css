@@ -1,13 +1,77 @@
-body{
-    margin:0;
-    position: relative;
+*{
+    margin: 0;
+    padding: 0;
+}
+ol,li{
+    list-style: none;
 }
 canvas{
-    background-color: grey;
+    background-color: #CDD7E6;
     display: block;
 }
-#eraser{
-    position: absolute;
-    bottom: 0;
+.selectColor{
+    position: fixed;
+    top: 40px;
+    left: 20px;
+    width: 20px;
+}
+.selectColor li{
+    width: 20px;
+    height: 20px;
+    margin:10px 0;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+}
+.selectColor .black{
+    background-color: black;
+}
+.selectColor .red{
+    background-color: red;
+}
+.selectColor .green{
+    background-color: green;
+}
+.selectColor .yellow{
+    background-color: yellow;
+}
+.svgDiv{
+    position: fixed;
+    top: 10px;
+    left: 40px;
+    transition: all 0.3s;
+}
+.svgDiv svg{
+    width: 1.5em;
+    height: 1.5em;
+    margin: 5px 10px;
+}
+#canvas{
+    position: fixed;
+    top: 0;
     left: 0;
+}
+.svgDiv svg.active{
+    transform: scale(1.2);
+}
+.selectColor li.selected{
+    box-shadow: none;
+}
+.border{
+    position: fixed;
+    right: 20px;
+    top: 40px;
+    width: 50px;
+}
+.border .thin{
+    height: 3px;
+    margin: 10px 0;
+    background-color: black;
+}
+.border .nomal{
+    height: 5px;
+    margin: 10px 0;
+    background-color: black;
+}
+.border .thick{
+    height: 10px;
+    background-color: black;
 }

@@ -5,11 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./style.css">
+    <script src="//at.alicdn.com/t/font_667152_817klraiuze3766r.js"></script>
     <title>耿朋的画板</title>
+    <style type="text/css">
+        .icon {
+           width: 1em; height: 1em;
+           vertical-align: -0.15em;
+           fill: currentColor;
+           overflow: hidden;
+        }
+    </style>
 </head>
 <body>
     <canvas id="canvas" width=1000 height=500></canvas>
-    <button id="eraser">橡皮擦</button>
+    <div class="svgDiv">
+        <svg id="pen" class="icon active" aria-hidden="true">
+            <use xlink:href="#icon-pen"></use>
+        </svg>
+        <svg id="eraser" class="icon" aria-hidden="true">
+            <use xlink:href="#icon-eraser"></use>
+        </svg>
+        
+        <svg id="clear" class="icon" aria-hidden="true">
+            <use xlink:href="#icon-custom-clear"></use>
+        </svg>
+        <svg id="download" class="icon" aria-hidden="true">
+            <use xlink:href="#icon-download"></use>
+        </svg>
+    </div>  
+    <ol class="selectColor">
+        <li id="black" class="black selected"></li>
+        <li id="red" class="red"></li>
+        <li id="green" class="green"></li>
+        <li id="yellow" class="yellow"></li>
+    </ol>
+    <div class="border">
+        <div id="thin" class="thin"></div>
+        <div id="nomal" class="nomal"></div>
+        <div id="thick" class="thick"></div>
+    </div>
     <script src="./main.js"></script>
 </body>
 </html>
