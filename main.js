@@ -1,5 +1,6 @@
 var canvas = document.getElementById("canvas");
 var lineWidth = 5;
+var defaultColor = "black";
 pageWidthAndHeight(canvas);
 window.onresize=function(){
     pageWidthAndHeight(canvas);
@@ -14,6 +15,9 @@ eraser.onclick=function(){
     eraser.classList.add('active');
 }
 pen.onclick=function(){
+    ctx.fillStyle=defaultColor;
+    ctx.strokeStyle=defaultColor;
+    ctx.lineWidth= lineWidth;
     eras = false;
     pen.classList.add('active');
     eraser.classList.remove('active');
@@ -25,6 +29,7 @@ black.onclick=function(){
     red.classList.remove('selected');
     green.classList.remove('selected');
     yellow.classList.remove('selected');
+    defaultColor = "black";
 }
 red.onclick=function(){
     ctx.fillStyle="red";
@@ -33,6 +38,7 @@ red.onclick=function(){
     black.classList.remove('selected');
     green.classList.remove('selected');
     yellow.classList.remove('selected');
+    defaultColor = "red";
 }
 green.onclick=function(){
     ctx.fillStyle="green";
@@ -41,6 +47,7 @@ green.onclick=function(){
     red.classList.remove('selected');
     black.classList.remove('selected');
     yellow.classList.remove('selected');
+    defaultColor = "green";
 }
 yellow.onclick=function(){
     ctx.fillStyle="yellow";
@@ -49,6 +56,7 @@ yellow.onclick=function(){
     red.classList.remove('selected');
     green.classList.remove('selected');
     black.classList.remove('selected');
+    defaultColor = "yellow";
 }
 clear.onclick=function(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -84,7 +92,10 @@ if(document.body.ontouchstart!==undefined){
         var x=a.touches[0].clientX;
         var y=a.touches[0].clientY;
         if(eras){
-            ctx.clearRect(x-5,y-5,10,10);
+            lastPoint2={
+                "x":x,
+                "y":y
+            }
             using=true;
         }
         else{
@@ -98,15 +109,17 @@ if(document.body.ontouchstart!==undefined){
     canvas.ontouchmove=function(a){
         var x=a.touches[0].clientX;
         var y=a.touches[0].clientY;
+        var newPoint={
+                "x":x,
+                "y":y
+            }
         if(using){
             if(eras){
-                ctx.clearRect(x-5,y-5,10,10);
+                
+                clipLine(lastPoint2.x,lastPoint2.y,newPoint.x,newPoint.y);
+                lastPoint2=newPoint;
             }
             else{
-            var newPoint={
-                "x":x,
-                    "y":y
-            }
             drawLine(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y);
             lastPoint=newPoint;
             } 
@@ -114,6 +127,7 @@ if(document.body.ontouchstart!==undefined){
     }
     canvas.ontouchend=function(){
         using=false;
+        eras=false;
     }
 }
 else{
@@ -121,8 +135,12 @@ else{
         var x=a.clientX;
         var y=a.clientY;
         if(eras){
-            ctx.clearRect(x-5,y-5,10,10);
+            
             using=true;
+            lastPoint2={
+                "x":x,
+                "y":y
+            }
         }
         else{
             using=true;
@@ -136,15 +154,18 @@ else{
     canvas.onmousemove=function(a){
         var x=a.clientX;
         var y=a.clientY;
+        var newPoint={
+            "x":x,
+            "y":y
+        }
         if(using){
             if(eras){
-                ctx.clearRect(x-5,y-5,10,10);
+                
+                clipLine(lastPoint2.x,lastPoint2.y,newPoint.x,newPoint.y);
+                lastPoint2=newPoint;
             }
             else{
-            var newPoint={
-                "x":x,
-                "y":y
-            }
+            
             drawLine(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y);
             lastPoint=newPoint;
             } 
@@ -153,6 +174,7 @@ else{
 
     canvas.onmouseup=function(){
         using=false;
+        eras=false;
     }
 }
 function drawLine(x1,y1,x2,y2){
@@ -162,6 +184,17 @@ function drawLine(x1,y1,x2,y2){
     ctx.lineTo(x2,y2);
     ctx.stroke();
     ctx.closePath();
+}
+function clipLine(x1,y1,x2,y2){
+    ctx.beginPath();
+    ctx.moveTo(x1,y1);
+    ctx.fillStyle="#CDD7E6";
+    ctx.strokeStyle="#CDD7E6";
+    ctx.lineWidth= 10;
+    ctx.lineTo(x2,y2);
+    ctx.stroke();
+    ctx.closePath();
+    
 }
 function pageWidthAndHeight(canvas){
     var pageWidth = document.documentElement.clientWidth;
