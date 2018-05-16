@@ -30,6 +30,8 @@ black.onclick=function(){
     green.classList.remove('selected');
     yellow.classList.remove('selected');
     defaultColor = "black";
+    pen.classList.add('active');
+    eraser.classList.remove('active');
 }
 red.onclick=function(){
     ctx.fillStyle="red";
@@ -39,6 +41,8 @@ red.onclick=function(){
     green.classList.remove('selected');
     yellow.classList.remove('selected');
     defaultColor = "red";
+    pen.classList.add('active');
+    eraser.classList.remove('active');
 }
 green.onclick=function(){
     ctx.fillStyle="green";
@@ -48,6 +52,8 @@ green.onclick=function(){
     black.classList.remove('selected');
     yellow.classList.remove('selected');
     defaultColor = "green";
+    pen.classList.add('active');
+    eraser.classList.remove('active');
 }
 yellow.onclick=function(){
     ctx.fillStyle="yellow";
@@ -57,6 +63,8 @@ yellow.onclick=function(){
     green.classList.remove('selected');
     black.classList.remove('selected');
     defaultColor = "yellow";
+    pen.classList.add('active');
+    eraser.classList.remove('active');
 }
 clear.onclick=function(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -190,7 +198,7 @@ function clipLine(x1,y1,x2,y2){
     ctx.moveTo(x1,y1);
     ctx.fillStyle="#CDD7E6";
     ctx.strokeStyle="#CDD7E6";
-    ctx.lineWidth= 10;
+    ctx.lineWidth= 7;
     ctx.lineTo(x2,y2);
     ctx.stroke();
     ctx.closePath();
